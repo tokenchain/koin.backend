@@ -1,3 +1,19 @@
+GOCMD=go
+GOBUILD=$(GOCMD) build
+GOGET=$(GOCMD) get
+BINARY_NAME=koikoin
+
 install:
-    go get -u github.com/dchest/uniuri
-    go get -u github.com/shomali11/xredis
+	@$(GOGET) -u github.com/dchest/uniuri
+	@$(GOGET) -u github.com/shomali11/xredis
+
+build:
+	@$(GOBUILD) -o $(BINARY_NAME)
+	@mkdir -p bin
+	@mv $(BINARY_NAME) bin/
+
+run: clean build
+	@bin/./$(BINARY_NAME)
+
+clean:
+	@rm -rf $(BINARY_NAME)

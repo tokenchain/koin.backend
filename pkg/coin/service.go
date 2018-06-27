@@ -4,7 +4,6 @@ import (
 	"math/rand"
 	"time"
 	"../err"
-	"fmt"
 )
 
 // Coins define as a uint64 type, more readable.
@@ -47,8 +46,7 @@ func (c Service) Bet(coins Coins, chance int) (result int, earn Coins, win bool,
 	}
 	random := random(0, 100)
 	if random <= chance {
-		fmt.Printf("%f * %f\n", float64(coins), float64(coins) * float64(1.-(float64(chance)/100.)))
-		return random, Coins(float64(coins) *float64(1.-(float64(chance)/100.)*float64(coins))), true, nil
+		return random, Coins(float64(coins)*float64(1.-(float64(chance)/100.))), true, nil
 	}
 	return random, coins, false, nil
 }

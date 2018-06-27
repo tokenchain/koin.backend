@@ -8,7 +8,7 @@ type AuthService interface {
 }
 
 // Service is a stateless structure that implement AuthService
-type Service struct {}
+type Service struct{}
 
 // Auth check if in the database user with this hash exist
 func (Service) Auth(hash string) bool {
