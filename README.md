@@ -18,7 +18,7 @@ __response__:
 ```
 
 - POST {host}/api/bet <br>
-__form__: coins: uint64, chance int <br>
+__form__: coins uint64, chance int <br>
 __description__: bet a amount with a percentage <br>
 __rate limiter__: 1 request per second <br>
 __response__:
