@@ -8,7 +8,7 @@ Koinkoin.io is a simple game that allows you to bet a certain amount of koins wi
 __description__: Will create a user with a random hash and 100 coins. <br>
 __rate limiter__: 1 request per hour <br>
 __response__:
-```json
+```
 {
   "Hash": string,
   "Coins": uint64,
@@ -22,7 +22,7 @@ __form__: coins: uint64, chance int <br>
 __description__: bet a amount with a percentage <br>
 __rate limiter__: 1 request per second <br>
 __response__:
-```json
+```
 {
   "earn": uint64, //what user win or lose
   "win": uint64, //if player win or lose
