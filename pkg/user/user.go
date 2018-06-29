@@ -3,16 +3,13 @@ package user
 import (
 	"../db"
 	"github.com/dchest/uniuri"
-	"fmt"
-	"strconv"
-	"reflect"
 )
 
 // UserService implement an user abstraction.
 type UserService interface {
-	Save() bool
+	Save()
 	HasEnoughCoin(coins uint64) bool
-	Update() bool
+	Update()
 }
 
 // User contain strict minimum information about user.
@@ -25,40 +22,32 @@ type User struct {
 }
 
 // Save save to the database the structure 'u' without Hash field.
-func (u User) Save() bool {
-	r := reflect.ValueOf(u)
-	for _, value := range []string{"Name", "Mail", "Coins"} {
-		if _, e := db.GetDb().HSet("user."+u.Hash, value, fmt.Sprint(r.FieldByName(value)));  e != nil {
-			fmt.Println(e.Error())
-			return false
-		}
-	}
-	return true
+func (u User) Save() {
+	db.SaveStructure("user."+u.Hash, u)
 }
 
 // Update update the fields of the structure (except Hash) from the database.
-func (u *User) Update() bool {
-	if v, success, err := db.GetDb().HGet("user."+u.Hash, "Name"); success && err == nil {
-		u.Name = v
-	} else {
-		return false
-	}
-	if v, success, err := db.GetDb().HGet("user."+u.Hash, "Coins"); success && err == nil {
-		if x, err := strconv.ParseUint(v, 10, 64); err == nil {
-			u.Coins = x
-		}
-	} else {
-		return false
-	}
-	return true
+func (u *User) Update() {
+	db.StructFromKey("user."+u.Hash, u)
+	//if v, success, err := db.GetDb().HGet("user."+u.Hash, "Name"); success && err == nil {
+	//	u.Name = v
+	//} else {
+	//	return false
+	//}
+	//if v, success, err := db.GetDb().HGet("user."+u.Hash, "Coins"); success && err == nil {
+	//	if x, err := strconv.ParseUint(v, 10, 64); err == nil {
+	//		u.Coins = x
+	//	}
+	//} else {
+	//	return false
+	//}
+	//return true
 }
 
 // HasEnoughCoin update from the db the state of the user and then check if
 // the user has enough coins that 'c'.
 func (u *User) HasEnoughCoin(c uint64) bool {
-	if !u.Update() {
-		return false
-	}
+	u.Update()
 	return u.Coins >= c
 }
 

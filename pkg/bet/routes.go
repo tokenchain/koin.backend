@@ -22,13 +22,14 @@ func PostBet(ctx iris.Context) {
 	us := user.Get(ctx.GetHeader("hash"))
 
 	// Check if us has enough coins
-	fmt.Println(us.HasEnoughCoin(coins))
 	if !us.HasEnoughCoin(coins) {
 		no(ctx, err.NotEnoughCoins)
 		return
 	}
-	res, coins, win, er := New().Bet(coins, chance)
 
+	bet := New(coins, chance)
+	er := bet.Bet()
+	bet.BeforeCoins = us.Coins
 	// Check if bet didn't throw an error.
 	if er != nil {
 		no(ctx, er)
@@ -36,14 +37,16 @@ func PostBet(ctx iris.Context) {
 	}
 
 	// If win add coins else remove coins
-	if win {
-		us.Coins += coins
+	if bet.Win {
+		us.Coins += bet.Earn
 	} else {
-		us.Coins -= coins
+		us.Coins -= bet.Earn
 	}
 
+
 	us.Save()
-	ctx.JSON(iris.Map{"result": res, "earn": coins, "win": win, "coins": us.Coins})
+	bet.AfterCoins = us.Coins
+	ctx.JSON(bet)
 }
 
 // no just set statuscode and json for an error.
