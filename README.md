@@ -4,10 +4,10 @@ Koinkoin.io is a simple game that allows you to bet a certain amount of koins wi
 
 ## API
 
-- GET {host}/api/user/new <br>
-__description__: Will create a user with a random hash and 100 coins. <br>
-__rate limiter__: 1 request per hour <br>
-__response__:
+#### GET {host}/api/user/new <br>
+__Description__: Will create a user with a random hash and 100 coins. <br>
+__Rate limiter__: 1 request per hour <br>
+__Response__:
 ```
 {
   "Hash": string,
@@ -17,16 +17,18 @@ __response__:
 }
 ```
 
-- POST {host}/api/bet <br>
-__form__: coins uint64, chance int <br>
-__description__: bet a amount with a percentage <br>
-__rate limiter__: 1 request per second <br>
-__response__:
-```
-{
-  "earn": uint64, //what user win or lose
-  "win": uint64, //if player win or lose
-  "result": int, //the number generated
-  "coins": uint64 //the actual number of coins
-}
-```
+#### POST {host}/api/bet <br>
+__Form__: <br>
+| Name          | Type          | Description     |
+| ------------- |:-------------:|:----------------|
+| `coins`       | uint64        | coins to bet    |
+| `chance`      | int           | chance to win   | 
+__Description__: bet a amount with a percentage <br>
+__Rate limiter__: 1 request per second <br>
+__Response__:
+| Name          | Type          | Description                 |
+| ------------- |:-------------:|:----------------------------|
+| `earn`        | uint64        | what user win or lose       |
+| `win`         | uint64        | if player win or lose       | 
+| `result`      | int           | the number generated        | 
+| `coins`       | uint64        | the actual number of coins  | 
