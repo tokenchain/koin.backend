@@ -18,10 +18,10 @@ type UserService interface {
 // User contain strict minimum information about user.
 // Hash is randomly generated at first connection.
 type User struct {
-	Hash  string
-	Name  string
-	Mail  string
-	Coins uint64
+	Hash  string `json:"hash"`
+	Name  string `json:"name"`
+	Mail  string `json:"mail"`
+	Coins uint64 `json:"coins"`
 }
 
 // Save save to the database the structure 'u' without Hash field.
