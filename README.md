@@ -22,7 +22,9 @@ __Form__: <br>
 | Name          | Type          | Description     |
 | ------------- |:-------------:|:----------------|
 | `coins`       | uint64        | coins to bet    |
-| `chance`      | int           | chance to win   | <br>
+| `chance`      | int           | chance to win   |
+
+
 __Description__: bet a amount with a percentage <br>
 __Rate limiter__: 1 request per second <br>
 __Response__:
