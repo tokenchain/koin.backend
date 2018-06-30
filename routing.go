@@ -16,6 +16,7 @@ func RouteAll(app *iris.Application) {
 
 	app.Get("/api/user/new", limiter(1, time.Second), auth.MidNeedNoAuthentication, user.GetGenerateUser)
 	app.Post("/api/bet", limiter(2, time.Second), auth.MidNeedAuthentication, bet.PostBet)
+	app.Get("/api/bet/stats", limiter(1, time.Second), bet.GetStats)
 }
 
 func limiter(n float64, duration time.Duration) context.Handler {

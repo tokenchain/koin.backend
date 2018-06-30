@@ -1,14 +1,15 @@
 package bet
 
-type StatsService interface {
-	UpdateStatistics(hash string, bet Bet)
-}
+import "../db"
+
+var globalStats = NewStats("global")
 
 type Statistics struct {
+	Hash  string `json:"hash"`  // Hash is the identifier.
 	Count uint64 `json:"count"` // Count is the total bet effectuated.
 
 	AverageEarn   uint64 `json:"averageEarn"`   // AverageEarn is the average of earn.
-	AverageLose   uint64 `json:"averageEarn"`   // AverageLose is the average of lose.
+	AverageLose   uint64 `json:"averageLose"`   // AverageLose is the average of lose.
 	AverageCoins  uint64 `json:"averageCoins"`  // AverageCoins is the average of coins bet.
 	AverageChance uint64 `json:"averageChance"` // AverageChance is the average of chance bet.
 	AverageResult uint64 `json:"averageResult"` // AverageResult is the average of result number generated.
@@ -28,7 +29,7 @@ type Statistics struct {
 	Success uint64 `json:"success"` // Success is the amount of positive bet.
 	Failed  uint64 `json:"failed"`  // Failed is the amount of negative bet.
 
-	TotalCoins  uint64 `json:"totalChance"` // TotalCoins is the total chance bet.
+	TotalCoins  uint64 `json:"totalCoins"` // TotalCoins is the total chance bet.
 	TotalEarn   uint64 `json:"totalEarn"`   // TotalEarn is the total a bettor earn.
 	TotalLose   uint64 `json:"totalLose"`   // TotalLose is the total a bettor lose.
 	TotalChance uint64 `json:"totalChance"` // TotalChance is the total a bettor chance.
@@ -38,7 +39,7 @@ type Statistics struct {
 	Fearful uint64 `json:"isFearful"` // IsFearful represent the bettor as 'fearful'.
 }
 
-func (s *Statistics) UpdateStatistics(hash string, bet Bet) {
+func (s *Statistics) UpdateStatistics(bet Bet) *Statistics {
 	s.Count++
 
 	s.TotalCoins += bet.Coins
@@ -55,7 +56,10 @@ func (s *Statistics) UpdateStatistics(hash string, bet Bet) {
 	s.updateMin(bet)
 	s.updateMax(bet)
 	s.updateAverage(bet)
+	s.updateGreedy(bet)
+	s.updateFearful(bet)
 	//todo update Greedy and Fearful ? How to determine it ?
+	return s
 }
 
 func (s *Statistics) updateMin(bet Bet) {
@@ -90,5 +94,42 @@ func (s *Statistics) updateAverage(bet Bet) {
 	s.AverageEarn = uint64(float64(s.TotalEarn) / float64(s.Success))
 	s.AverageChance = uint64(float64(s.TotalChance) / float64(s.Count))
 	s.AverageResult = uint64(float64(s.TotalResult) / float64(s.Count))
-	s.AverageLose = uint64(float64(s.TotalResult) / float64(s.Failed))
+	s.AverageLose = uint64(float64(s.TotalLose) / float64(s.Failed))
+}
+
+func (s *Statistics) updateGreedy(bet Bet) {
+	if bet.TotalCoinsBefore == bet.Coins && bet.Chance < 15 {
+		s.Greedy += 4
+	} else if bet.TotalCoinsBefore == bet.Coins {
+		s.Greedy += 3
+	} else if bet.Coins / bet.TotalCoinsBefore * 100 > 85 && bet.Chance < 15 {
+		s.Greedy += 3
+	} else if bet.Coins / bet.TotalCoinsBefore * 100 > 85 {
+		s.Greedy += 2
+	} else if bet.Chance < 15 {
+		s.Greedy += 1
+	}
+}
+
+func (s *Statistics) updateFearful(bet Bet) {
+	if bet.Coins / bet.TotalCoinsBefore * 100 < 10 && bet.Chance > 80 {
+		s.Greedy += 4
+	} else if bet.Coins / bet.TotalCoinsBefore * 100 < 10 {
+		s.Greedy += 2
+	} else if bet.Chance > 80 {
+		s.Greedy += 1
+	}
+}
+
+func NewStats(key string) *Statistics {
+	stats := &Statistics{Hash: key}
+	exist, err := db.GetDb().HKeys("stats.bet." + stats.Hash)
+	if len(exist) > 0 && err == nil {
+		db.StructFromKey("stats.bet."+stats.Hash, stats)
+	}
+	return stats
+}
+
+func (s Statistics) save() {
+	db.SaveStructure("stats.bet."+s.Hash, s)
 }

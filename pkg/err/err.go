@@ -10,4 +10,5 @@ var (
 	AlreadyAuthenticated     = errors.New("user need to not be authenticated")
 	NumberMalformed          = errors.New("number are malformed")
 	NotEnoughCoins          = errors.New("not enough koins")
+	IncorrectParameter          = errors.New("incorrect parameter")
 )

@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"../err"
 	"../user"
-	"fmt"
+	"../auth"
 )
 
 // Bet is a http handler that invoke New().Bet method with full error check.
@@ -27,7 +27,7 @@ func PostBet(ctx iris.Context) {
 		return
 	}
 
-	bet := New(coins, chance)
+	bet := New(coins, chance, us.Coins)
 	er := bet.Bet()
 	bet.BeforeCoins = us.Coins
 	// Check if bet didn't throw an error.
@@ -46,7 +46,18 @@ func PostBet(ctx iris.Context) {
 
 	us.Save()
 	bet.AfterCoins = us.Coins
+	globalStats.UpdateStatistics(*bet).save()
+	NewStats(us.Hash).UpdateStatistics(*bet).save()
 	ctx.JSON(bet)
+}
+
+func GetStats(ctx iris.Context) {
+	hash := ctx.URLParam("hash")
+	if hash != "" && auth.New().Auth(hash) || hash == "global" {
+		ctx.JSON(NewStats(hash))
+		return
+	}
+	no(ctx, err.IncorrectParameter)
 }
 
 // no just set statuscode and json for an error.
