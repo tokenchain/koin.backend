@@ -13,8 +13,8 @@ import (
 
 // RouteAll route all routes from  other service.
 func RouteAll(app *iris.Application) {
-	app.Get("/api/user/new", limiter(1, time.Second), auth.MidNeedNoAuthentication, user.GetGenerateUser)
-	app.Get("/api/user/", limiter(3, time.Second), auth.MidNeedAuthentication, user.GetUser)
+	app.Get("/api/user/new", limiter(1, time.Hour), auth.MidNeedNoAuthentication, user.GetGenerateUser)
+	app.Get("/api/user/", limiter(20, time.Second), auth.MidNeedAuthentication, user.GetUser)
 	app.Post("/api/user/update", limiter(1, time.Second), auth.MidNeedAuthentication, user.PostUpdateUser)
 	app.Post("/api/bet", limiter(2, time.Second), auth.MidNeedAuthentication, bet.PostBet)
 	app.Get("/api/bet/stats", limiter(1, time.Second), bet.GetStats)

@@ -3,6 +3,7 @@ package user
 import (
 	"github.com/kataras/iris"
 	"../err"
+	"../auth"
 )
 
 // GenerateUser generate a new user and return the json of the User struct.
@@ -39,7 +40,11 @@ func PostUpdateUser(ctx iris.Context) {
 }
 
 func GetUser(ctx iris.Context) {
-	ctx.JSON(Get(ctx.GetHeader("hash")))
+	if auth.New().Auth(ctx.URLParam("hash")) {
+		ctx.JSON(Get(ctx.URLParam("hash")))
+		return
+	}
+	no(ctx, err.NoUserFound)
 }
 
 // updateValue is just boilerplate because go.

@@ -8,6 +8,7 @@ var (
 	CoinsCantBeLesser5       = errors.New("bet cant be lesser than 5")
 	NotAuthenticated         = errors.New("user need to be authenticated")
 	AlreadyAuthenticated     = errors.New("user need to not be authenticated")
+	NoUserFound     = errors.New("no user found")
 	NumberMalformed          = errors.New("number are malformed")
 	NotEnoughCoins           = errors.New("not enough koins")
 	IncorrectParameter       = errors.New("incorrect parameter")
