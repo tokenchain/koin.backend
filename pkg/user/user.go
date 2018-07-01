@@ -3,6 +3,7 @@ package user
 import (
 	"../db"
 	"github.com/dchest/uniuri"
+	"regexp"
 )
 
 // UserService implement an user abstraction.
@@ -11,6 +12,9 @@ type UserService interface {
 	HasEnoughCoin(coins uint64) bool
 	Update()
 }
+
+var nameRegexp = regexp.MustCompile("^([a-zA-Z0-9-_]{2,36})$")
+var mailRegexp = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 
 // User contain strict minimum information about user.
 // Hash is randomly generated at first connection.
@@ -29,19 +33,6 @@ func (u User) Save() {
 // Update update the fields of the structure (except Hash) from the database.
 func (u *User) Update() {
 	db.StructFromKey("user."+u.Hash, u)
-	//if v, success, err := db.GetDb().HGet("user."+u.Hash, "Name"); success && err == nil {
-	//	u.Name = v
-	//} else {
-	//	return false
-	//}
-	//if v, success, err := db.GetDb().HGet("user."+u.Hash, "Coins"); success && err == nil {
-	//	if x, err := strconv.ParseUint(v, 10, 64); err == nil {
-	//		u.Coins = x
-	//	}
-	//} else {
-	//	return false
-	//}
-	//return true
 }
 
 // HasEnoughCoin update from the db the state of the user and then check if
