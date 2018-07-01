@@ -45,7 +45,7 @@ or
 
 #### GET {{host}}/api/user/?hash={{hash}}
 
-__Description__: Get information about an user.
+__Description__: Get information about an user. <br>
 __Rate limiter__: 20 request per seconds <br>
 __Response__: <br>
 
