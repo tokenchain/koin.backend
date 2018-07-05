@@ -4,6 +4,18 @@ Koinkoin.io is a simple game that allows you to bet a certain amount of koins wi
 
 ## API
 
+#### Note on error
+
+On each endpoint check if an error field is present, if it's the case the error message would be like this:
+
+| Field name    | Type         |
+| ------------- |:------------:|
+| `code`       | int        |
+| `message`      | string        |
+| `name`      | string        |
+
+The `code` is the identifier of the error. 
+
 ### User
 
 #### GET {{host}}/api/user/new
@@ -17,6 +29,17 @@ __Response__: <br>
 | `coins`      | uint64        |
 | `email`      | string        |
 | `name`       | string        |
+
+#### POST {{host}}/api/bet/mail/?mail={{hash}}
+
+__Description__: Send a mail with the hash of the player. <br>
+__Rate limiter__: 1 request per hour <br>
+__Response__: <br>
+
+| Name          | Type          |
+| ------------- |:-------------:|
+| `success`       | bool        |
+
 
 #### GET {{host}}/api/user/update
 
@@ -36,12 +59,6 @@ __Response__:
 | Name          | Type          |
 | ------------- |:-------------:|
 | `success`       | bool        |
-
-or
-
-| Name          | Type          |
-| ------------- |:-------------:|
-| `error`       | string        |
 
 #### GET {{host}}/api/user/?hash={{hash}}
 
