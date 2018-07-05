@@ -7,6 +7,7 @@ import (
 	"./third_party"
 	"./pkg/auth"
 	"./pkg/bet"
+	"./pkg/mail"
 	"time"
 	"github.com/kataras/iris/context"
 )
@@ -15,6 +16,7 @@ import (
 func RouteAll(app *iris.Application) {
 	app.Get("/api/user/new", limiter(1, time.Hour), auth.MidNeedNoAuthentication, user.GetGenerateUser)
 	app.Get("/api/user/", limiter(20, time.Second), auth.MidNeedAuthentication, user.GetUser)
+	app.Get("/api/user/mail", limiter(5, time.Hour), auth.MidNeedAuthentication, mail.GetSendMail)
 	app.Post("/api/user/update", limiter(1, time.Second), auth.MidNeedAuthentication, user.PostUpdateUser)
 	app.Post("/api/bet", limiter(2, time.Second), auth.MidNeedAuthentication, bet.PostBet)
 	app.Get("/api/bet/stats", limiter(1, time.Second), bet.GetStats)

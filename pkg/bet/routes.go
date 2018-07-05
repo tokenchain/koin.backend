@@ -15,7 +15,7 @@ func PostBet(ctx iris.Context) {
 
 	// Check if conversion int are okay
 	if errCoins != nil  || errChance != nil {
-		no(ctx, err.NumberMalformed)
+		err.ThrownError(ctx, err.NumberMalformed)
 		return
 	}
 
@@ -23,7 +23,7 @@ func PostBet(ctx iris.Context) {
 
 	// Check if us has enough coins
 	if !us.HasEnoughCoin(coins) {
-		no(ctx, err.NotEnoughCoins)
+		err.ThrownError(ctx, err.NotEnoughCoins)
 		return
 	}
 
@@ -32,7 +32,7 @@ func PostBet(ctx iris.Context) {
 	bet.BeforeCoins = us.Coins
 	// Check if bet didn't throw an error.
 	if er != nil {
-		no(ctx, er)
+		err.ThrownError(ctx, er)
 		return
 	}
 
@@ -57,11 +57,5 @@ func GetStats(ctx iris.Context) {
 		ctx.JSON(NewStats(hash))
 		return
 	}
-	no(ctx, err.IncorrectParameter)
-}
-
-// no just set statuscode and json for an error.
-func no(ctx iris.Context, err error) {
-	ctx.StatusCode(iris.StatusBadRequest)
-	ctx.JSON(iris.Map{"error": err.Error()})
+	err.ThrownError(ctx, err.IncorrectParameter)
 }

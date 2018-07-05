@@ -57,7 +57,7 @@ func random(min, max int) int {
 //  - if chance is <= 2 -> Error
 //  - if coins < 5 -> Error
 // If it's a loose, re-assign earn and win.
-func (c *Bet) Bet() error {
+func (c *Bet) Bet() *err.Err {
 
 	// Check errors.
 	if c.Chance >= 98 {

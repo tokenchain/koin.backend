@@ -13,7 +13,7 @@ func MidNeedAuthentication(ctx iris.Context) {
 		ctx.Next()
 	} else {
 		ctx.StatusCode(iris.StatusForbidden)
-		ctx.JSON(iris.Map{"error": err.NotAuthenticated.Error()})
+		err.ThrownError(ctx, err.NotAuthenticated)
 	}
 }
 
@@ -24,6 +24,6 @@ func MidNeedNoAuthentication(ctx iris.Context) {
 		ctx.Next()
 	} else {
 		ctx.StatusCode(iris.StatusForbidden)
-		ctx.JSON(iris.Map{"error": err.AlreadyAuthenticated.Error()})
+		err.ThrownError(ctx, err.AlreadyAuthenticated)
 	}
 }

@@ -22,7 +22,7 @@ func GetGenerateUser(ctx iris.Context) {
 // Note: you can update name and fail with mail.
 func PostUpdateUser(ctx iris.Context) {
 	if !updateValue(ctx, "name", func(str string) bool {
-		return nameRegexp.MatchString(str)
+		return NameRegexp.MatchString(str)
 	}, func(user *User, str string) {
 		user.Name = str
 	}, err.IncorrectName) {
@@ -30,7 +30,7 @@ func PostUpdateUser(ctx iris.Context) {
 	}
 
 	if !updateValue(ctx, "mail", func(str string) bool {
-		return mailRegexp.MatchString(str)
+		return MailRegexp.MatchString(str)
 	}, func(user *User, str string) {
 		user.Mail = str
 	}, err.IncorrectMail) {
@@ -44,12 +44,12 @@ func GetUser(ctx iris.Context) {
 		ctx.JSON(Get(ctx.URLParam("hash")))
 		return
 	}
-	no(ctx, err.NoUserFound)
+	err.ThrownError(ctx, err.NoUserFound)
 }
 
 // updateValue is just boilerplate because go.
 func updateValue(ctx iris.Context, name string, validation func(str string) bool,
-	then func(user *User, str string), errr error) bool {
+	then func(user *User, str string), er *err.Err) bool {
 	if x := ctx.PostValue(name); x != "" {
 		if validation(x) {
 			u := Get(ctx.GetHeader("hash"))
@@ -57,17 +57,11 @@ func updateValue(ctx iris.Context, name string, validation func(str string) bool
 			u.Save()
 			return true
 		} else {
-			no(ctx, errr)
+			err.ThrownError(ctx, er)
 			return false
 		}
 	}
 	return true
 }
 
-// no just set status code and json for an error.
-// Thanks go for duplication code :).
-// todo: to remove
-func no(ctx iris.Context, err error) {
-	ctx.StatusCode(iris.StatusBadRequest)
-	ctx.JSON(iris.Map{"error": err.Error()})
-}
+

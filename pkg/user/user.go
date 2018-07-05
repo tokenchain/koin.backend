@@ -13,8 +13,8 @@ type UserService interface {
 	Update()
 }
 
-var nameRegexp = regexp.MustCompile("^([a-zA-Z0-9-_]{2,36})$")
-var mailRegexp = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+var NameRegexp = regexp.MustCompile("^([a-zA-Z0-9-_]{2,36})$")
+var MailRegexp = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 
 // User contain strict minimum information about user.
 // Hash is randomly generated at first connection.
