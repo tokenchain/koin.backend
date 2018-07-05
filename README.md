@@ -11,10 +11,11 @@ On each endpoint check if an error field is present, if it's the case the error 
 | Field name    | Type         |
 | ------------- |:------------:|
 | `code`       | int        |
-| `message`      | string        |
+| `error`      | string        |
 | `name`      | string        |
 
 The `code` is the identifier of the error. 
+The `error` field is the message of the error.
 
 ### User
 
