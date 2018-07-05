@@ -31,7 +31,7 @@ __Response__: <br>
 | `email`      | string        |
 | `name`       | string        |
 
-#### POST {{host}}/api/bet/mail/?mail={{hash}}
+#### GET {{host}}/api/bet/mail/?mail={{hash}}
 
 __Description__: Send a mail with the hash of the player. <br>
 __Rate limiter__: 1 request per hour <br>
