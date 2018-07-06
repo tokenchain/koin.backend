@@ -5,10 +5,11 @@ import (
 	"reflect"
 	"fmt"
 	"../../third_party"
+	"os"
 )
 
 var opts = &xredis.Options{
-	Host: "localhost",
+	Host: getHost(),
 	Port: 6379,
 }
 
@@ -70,4 +71,11 @@ func structToMapTags(t reflect.Type, v reflect.Value) map[string]reflect.Value {
 // CloseDb close the connection with the client and redis
 func CloseDb() {
 	client.Close()
+}
+
+func getHost() string {
+	if os.Getenv("host_redis") != "" {
+		return os.Getenv("host_redis")
+	}
+	return "localhost"
 }

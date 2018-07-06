@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  koinkoin:
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - /home/go/pkg:/home/go/pkg
+    depends_on:
+      - redis
+    env_file:
+      - datas.env
+
+  redis:
+    image: redis
+    restart: always
+    volumes:
+      - redis
+
+volumes:
+  redis:
