@@ -21,3 +21,6 @@ run: clean build
 
 clean:
 	@rm -rf $(BINARY_NAME)
+
+reset_docker:
+	docker-compose rm --all && docker-compose pull && docker-compose build --no-cache && docker-compose up -d --force-recreate
