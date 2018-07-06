@@ -2,6 +2,20 @@
 
 Koinkoin.io is a simple game that allows you to bet a certain amount of koins with a certain percentage of success. If it's win you win a commission of your bet, otherwise you lose it.
 
+## File: datas.env 
+
+Need to contains this fields:
+```
+redis_host: redis
+redis_port: 6379
+
+mail: io.koinkoin@gmail.com
+mail_pwd: password_here
+mail_host: smtp.gmail.com
+mail_port: 465
+
+```
+
 ## API
 
 #### Note on error

@@ -5,12 +5,14 @@ import (
 	"reflect"
 	"fmt"
 	"../../third_party"
+	"../util"
 	"os"
+	"strconv"
 )
 
 var opts = &xredis.Options{
-	Host: getHost(),
-	Port: 6379,
+	Host: util.GetEnvOrDefault("redis_host", "localhost"),
+	Port: util.GetEnvOrDefaultInt("redis_port", 6379),
 }
 
 var client = xredis.SetupClient(opts)
