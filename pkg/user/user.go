@@ -1,7 +1,7 @@
 package user
 
 import (
-	"../db"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/db"
 	"github.com/dchest/uniuri"
 	"regexp"
 )

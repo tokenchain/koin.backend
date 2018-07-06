@@ -4,12 +4,7 @@ GOGET=$(GOCMD) get
 BINARY_NAME=koikoin
 
 install:
-	@$(GOGET) -u github.com/dchest/uniuri
-	@$(GOGET) -u github.com/shomali11/xredis
-	@$(GOGET) -u github.com/kataras/iris
-	@$(GOGET) -u github.com/iris-contrib/middleware/tollboothic
-	@$(GOGET) -u github.com/didip/tollbooth
-	@$(GOGET) -u gopkg.in/gomail.v2
+	@$(GOGET) -u ./...
 
 build:
 	@$(GOBUILD) -o $(BINARY_NAME)

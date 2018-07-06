@@ -2,7 +2,7 @@ package auth
 
 import (
 	"github.com/kataras/iris"
-	"../err"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
 )
 
 // MidNeedAuthentication is a middleware that check if the header contain a

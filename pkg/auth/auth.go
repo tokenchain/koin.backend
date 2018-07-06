@@ -1,6 +1,6 @@
 package auth
 
-import "../db"
+import "github.com/koinkoin-io/koinkoin.backend/pkg/db"
 
 // AuthService check if an user is recognized
 type AuthService interface {

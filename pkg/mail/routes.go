@@ -2,8 +2,8 @@ package mail
 
 import (
 	"github.com/kataras/iris"
-	"../user"
-	"../err"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/user"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
 )
 
 

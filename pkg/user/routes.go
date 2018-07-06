@@ -2,8 +2,8 @@ package user
 
 import (
 	"github.com/kataras/iris"
-	"../err"
-	"../auth"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/auth"
 )
 
 // GenerateUser generate a new user and return the json of the User struct.

@@ -4,8 +4,8 @@ import (
 	"github.com/shomali11/xredis"
 	"reflect"
 	"fmt"
-	"../../third_party"
-	"../util"
+	"github.com/koinkoin-io/koinkoin.backend/third_party"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/util"
 )
 
 var opts = &xredis.Options{

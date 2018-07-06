@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./pkg/db"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/db"
 	"fmt"
 	"github.com/kataras/iris"
 

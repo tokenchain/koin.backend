@@ -1,6 +1,6 @@
 package bet
 
-import "../db"
+import "github.com/koinkoin-io/koinkoin.backend/pkg/db"
 
 var globalStats = NewStats("global")
 
