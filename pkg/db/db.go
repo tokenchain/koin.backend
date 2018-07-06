@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"../../third_party"
 	"../util"
-	"os"
 )
 
 var opts = &xredis.Options{
