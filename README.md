@@ -6,13 +6,13 @@ Koinkoin.io is a simple game that allows you to bet a certain amount of koins wi
 
 Need to contains this fields:
 ```
-redis_host: redis
-redis_port: 6379
+redis_host=redis
+redis_port=6379
 
-mail: io.koinkoin@gmail.com
-mail_pwd: password_here
-mail_host: smtp.gmail.com
-mail_port: 465
+mail=io.koinkoin@gmail.com
+mail_pwd=password_here
+mail_host=smtp.gmail.com
+mail_port=465
 
 ```
 
