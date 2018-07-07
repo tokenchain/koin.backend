@@ -43,7 +43,6 @@ func PostBet(ctx iris.Context) {
 		us.Coins -= bet.Earn
 	}
 
-
 	us.Save()
 	bet.AfterCoins = us.Coins
 	globalStats.UpdateStatistics(*bet).save()
@@ -53,8 +52,12 @@ func PostBet(ctx iris.Context) {
 
 func GetStats(ctx iris.Context) {
 	hash := ctx.URLParam("hash")
-	if hash != "" && auth.New().Auth(hash) || hash == "global" {
-		ctx.JSON(NewStats(hash))
+	if hash != "" {
+		if auth.New().Auth(hash) || hash == "global" {
+			ctx.JSON(NewStats(hash))
+			return
+		}
+		err.ThrownError(ctx, err.NoUserFound)
 		return
 	}
 	err.ThrownError(ctx, err.IncorrectParameter)
