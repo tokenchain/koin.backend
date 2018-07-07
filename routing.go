@@ -10,23 +10,21 @@ import (
 	"github.com/koinkoin-io/koinkoin.backend/pkg/mail"
 	"time"
 	"github.com/kataras/iris/context"
-	"github.com/iris-contrib/middleware/cors"
 )
 
 // RouteAll route all routes from  other service.
 func RouteAll(app *iris.Application) {
-	crs := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
-		AllowCredentials: true,
+	app.Use(func(ctx context.Context) {
+		ctx.Header("Access-Control-Allow-Origin", "*")
+		ctx.Next()
 	})
 
-	a := app.Party("/api", crs).AllowMethods(iris.MethodOptions)
-	a.Get("/user/new", auth.MidNeedNoAuthentication, user.GetGenerateUser)
-	a.Get("/user/", auth.MidNeedAuthentication, user.GetUser)
-	a.Get("/user/mail", auth.MidNeedAuthentication, mail.GetSendMail)
-	a.Post("/user/update", auth.MidNeedAuthentication, user.PostUpdateUser)
-	a.Post("/bet", auth.MidNeedAuthentication, bet.PostBet)
-	a.Get("/bet/stats", bet.GetStats)
+	app.Get("/api/user/new", auth.MidNeedNoAuthentication, user.GetGenerateUser)
+	app.Get("/api/user/", auth.MidNeedAuthentication, user.GetUser)
+	app.Get("/api/user/mail", auth.MidNeedAuthentication, mail.GetSendMail)
+	app.Post("/api/user/update", auth.MidNeedAuthentication, user.PostUpdateUser)
+	app.Post("/api/bet", auth.MidNeedAuthentication, bet.PostBet)
+	app.Get("/api/bet/stats", bet.GetStats)
 	app.Get("/", func(ctx context.Context) {
 		ctx.JSON(iris.Map{"online": true, "uptime": Uptime()})
 	})
