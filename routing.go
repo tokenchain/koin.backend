@@ -14,12 +14,12 @@ import (
 
 // RouteAll route all routes from  other service.
 func RouteAll(app *iris.Application) {
-	app.Get("/api/user/new", limiter(1, time.Hour), auth.MidNeedNoAuthentication, user.GetGenerateUser)
-	app.Get("/api/user/", limiter(20, time.Second), auth.MidNeedAuthentication, user.GetUser)
-	app.Get("/api/user/mail", limiter(5, time.Hour), auth.MidNeedAuthentication, mail.GetSendMail)
-	app.Post("/api/user/update", limiter(1, time.Second), auth.MidNeedAuthentication, user.PostUpdateUser)
-	app.Post("/api/bet", limiter(2, time.Second), auth.MidNeedAuthentication, bet.PostBet)
-	app.Get("/api/bet/stats", limiter(1, time.Second), bet.GetStats)
+	app.Get("/api/user/new", auth.MidNeedNoAuthentication, user.GetGenerateUser)
+	app.Get("/api/user/", auth.MidNeedAuthentication, user.GetUser)
+	app.Get("/api/user/mail", auth.MidNeedAuthentication, mail.GetSendMail)
+	app.Post("/api/user/update", auth.MidNeedAuthentication, user.PostUpdateUser)
+	app.Post("/api/bet", auth.MidNeedAuthentication, bet.PostBet)
+	app.Get("/api/bet/stats", bet.GetStats)
 	app.Get("/", func(ctx context.Context) {
 		ctx.JSON(iris.Map{"uptime": Uptime()})
 	})
