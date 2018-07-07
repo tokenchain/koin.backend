@@ -21,7 +21,7 @@ func RouteAll(app *iris.Application) {
 	app.Post("/api/bet", auth.MidNeedAuthentication, bet.PostBet)
 	app.Get("/api/bet/stats", bet.GetStats)
 	app.Get("/", func(ctx context.Context) {
-		ctx.JSON(iris.Map{"uptime": Uptime()})
+		ctx.JSON(iris.Map{"online": true, "uptime": Uptime()})
 	})
 }
 
