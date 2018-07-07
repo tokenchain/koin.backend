@@ -1,7 +1,7 @@
 GOCMD=go
 GOBUILD=$(GOCMD) build
 GOGET=$(GOCMD) get
-BINARY_NAME=koikoin
+BINARY_NAME=koinkoin
 
 install:
 	@$(GOGET) -u ./...

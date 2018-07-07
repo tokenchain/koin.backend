@@ -8,5 +8,5 @@ RUN cd /go/src \
  && make install \
  && make build
 
-WORKDIR /go/src/github.com/koinkoin-io/koinkoin.backend
+WORKDIR /go/src/github.com/koinkoin-io/koinkoin.backend/bin
 ENTRYPOINT ["bin/koinkoin"]
