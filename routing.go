@@ -17,7 +17,11 @@ func RouteAll(app *iris.Application) {
 
 	app.AllowMethods(iris.MethodOptions)
 	app.Use(func(ctx context.Context) {
+
 		ctx.Header("Access-Control-Allow-Origin", "*")
+		if ctx.Method() == "OPTIONS" {
+			return
+		}
 		ctx.Next()
 	})
 
