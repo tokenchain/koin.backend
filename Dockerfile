@@ -9,4 +9,4 @@ RUN cd /go/src \
  && make build
 
 WORKDIR /go/src/github.com/koinkoin-io/koinkoin.backend/bin
-ENTRYPOINT ["koinkoin"]
+ENTRYPOINT ["./koinkoin"]
