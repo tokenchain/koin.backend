@@ -10,14 +10,17 @@ import (
 	"github.com/koinkoin-io/koinkoin.backend/pkg/mail"
 	"time"
 	"github.com/kataras/iris/context"
+	"github.com/iris-contrib/middleware/cors"
 )
 
 // RouteAll route all routes from  other service.
 func RouteAll(app *iris.Application) {
-	app.Options("/*", func(ctx context.Context) {
-		ctx.Header("Access-Control-Allow-Origin", "*")
-		ctx.Next()
+	crs := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
+		AllowCredentials: true,
 	})
+
+	app.Party("/*", crs).AllowMethods(iris.MethodOptions)
 	app.Get("/api/user/new", auth.MidNeedNoAuthentication, user.GetGenerateUser)
 	app.Get("/api/user/", auth.MidNeedAuthentication, user.GetUser)
 	app.Get("/api/user/mail", auth.MidNeedAuthentication, mail.GetSendMail)
