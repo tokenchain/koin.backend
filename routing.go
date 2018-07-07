@@ -16,6 +16,7 @@ import (
 func RouteAll(app *iris.Application) {
 	app.Use(func(ctx context.Context) {
 		ctx.Header("Access-Control-Allow-Origin", "*")
+		ctx.Next()
 	})
 	app.Get("/api/user/new", auth.MidNeedNoAuthentication, user.GetGenerateUser)
 	app.Get("/api/user/", auth.MidNeedAuthentication, user.GetUser)
