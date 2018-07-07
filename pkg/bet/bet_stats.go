@@ -1,6 +1,9 @@
 package bet
 
-import "github.com/koinkoin-io/koinkoin.backend/pkg/db"
+import (
+	"github.com/koinkoin-io/koinkoin.backend/pkg/db"
+	"math"
+)
 
 var globalStats = NewStats("global")
 
@@ -144,7 +147,13 @@ func (s *Statistics) updateFearful(bet Bet) {
 // was found in the database client.
 // If a key was found, load it.
 func NewStats(key string) *Statistics {
-	stats := &Statistics{Hash: key}
+	stats := &Statistics{
+		Hash:      key,
+		MinLose:   math.MaxUint64,
+		MinChance: math.MaxUint64,
+		MinEarn:   math.MaxUint64,
+		MinAmount: math.MaxUint64,
+	}
 	exist, err := db.GetDb().HKeys("stats.bet." + stats.Hash)
 	if len(exist) > 0 && err == nil {
 		db.StructFromKey("stats.bet."+stats.Hash, stats)
