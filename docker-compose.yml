@@ -3,6 +3,7 @@ version: '3'
 services:
   koinkoin:
     build: .
+    command: git pull
     ports:
       - 80:80
     depends_on:
