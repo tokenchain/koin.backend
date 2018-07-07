@@ -14,10 +14,6 @@ import (
 
 // RouteAll route all routes from  other service.
 func RouteAll(app *iris.Application) {
-	app.Use(func(ctx context.Context) {
-		ctx.Header("Access-Control-Allow-Origin", "*")
-		ctx.Next()
-	})
 	app.Options("/*", func(ctx context.Context) {
 		ctx.Header("Access-Control-Allow-Origin", "*")
 		ctx.Next()
