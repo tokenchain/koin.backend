@@ -10,6 +10,7 @@ import (
 	"github.com/koinkoin-io/koinkoin.backend/pkg/mail"
 	"time"
 	"github.com/kataras/iris/context"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/util"
 )
 
 // RouteAll route all routes from  other service.
@@ -20,6 +21,9 @@ func RouteAll(app *iris.Application) {
 	app.Post("/api/user/update", limiter(1, time.Second), auth.MidNeedAuthentication, user.PostUpdateUser)
 	app.Post("/api/bet", limiter(2, time.Second), auth.MidNeedAuthentication, bet.PostBet)
 	app.Get("/api/bet/stats", limiter(1, time.Second), bet.GetStats)
+	app.Get("/", func(ctx context.Context) {
+		ctx.JSON(iris.Map{"uptime": util.Uptime()})
+	})
 }
 
 func limiter(n float64, duration time.Duration) context.Handler {
