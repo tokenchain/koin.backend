@@ -11,7 +11,7 @@ import (
 var startTime  = time.Now()
 
 func Uptime() string {
-	return time.Since(startTime).String()
+	return time.Since(startTime.Round(time.Second)).String()
 }
 
 func main() {
