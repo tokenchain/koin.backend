@@ -4,6 +4,7 @@ RUN cd /go/src \
     && cd github.com/koinkoin-io/ \
     && git clone https://github.com/koinkoin-io/koinkoin.backend \
     && cd koinkoin.backend \
-    && make install
+    && make install \
+    && make build
 WORKDIR /go/src/github.com/koinkoin-io/koinkoin.backend
-ENTRYPOINT ["/usr/bin/make", "run"]
+ENTRYPOINT ["/bin/koinkoin"]
