@@ -5,7 +5,14 @@ import (
 	"fmt"
 	"github.com/kataras/iris"
 	"github.com/koinkoin-io/koinkoin.backend/pkg/util"
+	"time"
 )
+
+var startTime  = time.Now()
+
+func Uptime() string {
+	return time.Since(startTime).String()
+}
 
 func main() {
 	fmt.Println("Launching koinkoin.io !")
