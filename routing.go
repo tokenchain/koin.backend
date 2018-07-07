@@ -14,6 +14,9 @@ import (
 
 // RouteAll route all routes from  other service.
 func RouteAll(app *iris.Application) {
+	app.Use(func(ctx context.Context) {
+		ctx.Header("Access-Control-Allow-Origin", "*")
+	})
 	app.Get("/api/user/new", auth.MidNeedNoAuthentication, user.GetGenerateUser)
 	app.Get("/api/user/", auth.MidNeedAuthentication, user.GetUser)
 	app.Get("/api/user/mail", auth.MidNeedAuthentication, mail.GetSendMail)
