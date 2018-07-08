@@ -20,7 +20,7 @@ func RouteAll(app *iris.Application) {
 
 		ctx.Header("Access-Control-Allow-Origin", "*")
 		if ctx.Method() == "OPTIONS" {
-			ctx.Header("Access-Control-Allow-Headers", "hash, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
+			ctx.Header("Access-Control-Allow-Headers", "*")
 			return
 		}
 		ctx.Next()

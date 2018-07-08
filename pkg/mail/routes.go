@@ -14,6 +14,5 @@ func GetSendMail(ctx iris.Context) {
 		return
 	}
 	hash := ctx.GetHeader("hash")
-	SendMail(hash, ctx.URLParam("mail"))
-
+	go SendMail(hash, ctx.URLParam("mail"))
 }
