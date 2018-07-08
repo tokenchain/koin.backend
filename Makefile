@@ -31,4 +31,4 @@ docker_start:
 docker_reset:
 	@docker-compose kill koinkoin && docker-compose build --no-cache koinkoin
 
-docker_restart: docker_reset docker_run
+docker_restart: docker_reset docker_start
