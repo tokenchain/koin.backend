@@ -3,7 +3,6 @@ version: '3'
 services:
   koinkoin:
     build: .
-    command: go get -u github.com/koinkoin-io/koinkoin.backend
     ports:
       - 80:80
     depends_on:
