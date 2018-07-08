@@ -25,8 +25,10 @@ clean:
 docker_build:
 	@docker-compose build --no-cache koinkoin
 
-docker_run:
+docker_start:
 	@docker-compose up -d
 
 docker_reset:
 	@docker-compose kill koinkoin && docker-compose build --no-cache koinkoin
+
+docker_restart: docker_reset docker_run
