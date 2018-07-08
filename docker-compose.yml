@@ -3,7 +3,7 @@ version: '3'
 services:
   koinkoin:
     build: .
-    command: git pull
+    command: go get -u github.com/koinkoin-io/koinkoin.backend
     ports:
       - 80:80
     depends_on:
@@ -14,6 +14,7 @@ services:
   redis:
     image: redis
     restart: always
+    command: redis-server --appendonly yes
     volumes:
       - redis
 
