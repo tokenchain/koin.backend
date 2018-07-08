@@ -9,8 +9,8 @@ import (
 )
 
 var opts = &xredis.Options{
-	Host: util.GetEnvOrDefault("redis_host", "localhost"),
-	Port: util.GetEnvOrDefaultInt("redis_port", 6379),
+	Host: util.GetEnvOrDefault("db_host", "localhost"),
+	Port: util.GetEnvOrDefaultInt("db_port", 6379),
 }
 
 var client = xredis.SetupClient(opts)
