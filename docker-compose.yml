@@ -11,7 +11,7 @@ services:
       - datas.env
 
   redis:
-    image: redis
+    build: ./redis
     restart: always
     command: redis-server --appendonly yes
     volumes:
