@@ -23,10 +23,10 @@ clean:
 	@rm -rf $(BINARY_NAME)
 
 docker_build:
-	@docker-compose build --no-cache
+	@docker-compose build --no-cache koinkoin
 
 docker_run:
 	@docker-compose up -d
 
 docker_reset:
-	@docker-compose rm --all && docker-compose pull && docker-compose build --no-cache
+	@docker-compose kill koinkoin && docker-compose build --no-cache koinkoin
