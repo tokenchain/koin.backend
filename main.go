@@ -15,7 +15,7 @@ func Uptime() string {
 }
 
 func main() {
-	fmt.Println("Launching koinkoin.io !")
+	fmt.Println("Launching koinkoin.io ! Bet, win and repeat.")
 	defer db.CloseDb()
 
 	app := iris.Default()
