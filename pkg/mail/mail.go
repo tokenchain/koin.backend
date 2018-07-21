@@ -9,7 +9,7 @@ import (
 )
 
 func SendMail(hash string, email string) {
-	d := gomail.NewDialer(
+	d := gomail.NewPlainDialer(
 		util.GetEnvOrDefault("mail_host", "smtp.gmail.com"),
 		util.GetEnvOrDefaultInt("mail_port", 465),
 		util.GetEnvOrDefault("mail", "io.koinkoin@gmail.com"),
