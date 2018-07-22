@@ -26,7 +26,7 @@ docker_build:
 	@docker-compose build --no-cache koinkoin
 
 docker_start:
-	@docker-compose up -d
+	@docker-compose up -d --build
 
 docker_reset:
 	@docker-compose kill koinkoin && docker-compose build --no-cache koinkoin
