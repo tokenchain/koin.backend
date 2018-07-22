@@ -16,11 +16,13 @@ func GetSendMail(ctx iris.Context) {
 	}
 	hash := ctx.GetHeader("hash")
 
-	worker.PushJob(worker.Job{
-		Name:     "mail for hash " + ctx.GetHeader("hash") + " at " + ctx.URLParam("mail"),
-		Runnable: func() error {
+
+	worker.Add(worker.Job{
+		Name:     "mail " + ctx.GetHeader("hash") + "->" + ctx.URLParam("mail"),
+		Run: func() error {
 			SendMail(hash, ctx.URLParam("mail"))
 			return nil
 		},
 	})
+	ctx.JSON(iris.Map{"success": true})
 }
