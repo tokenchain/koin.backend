@@ -22,7 +22,7 @@ func MidNeedAuthentication(ctx iris.Context) {
 func MidNeedNoAuthentication(ctx iris.Context) {
 	hash := ctx.GetHeader("hash")
 	fmt.Printf("HOOOOO YA PAS DE HASH FDP :" + ctx.GetHeader("hash"))
-	if hash != "" && !New().Auth(hash) {
+	if hash == "" || !New().Auth(hash) {
 		ctx.Next()
 	} else {
 		ctx.StatusCode(iris.StatusForbidden)
