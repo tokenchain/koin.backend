@@ -3,6 +3,7 @@ package auth
 import (
 	"github.com/kataras/iris"
 	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
+	"fmt"
 )
 
 // MidNeedAuthentication is a middleware that check if the header contain a
@@ -20,6 +21,7 @@ func MidNeedAuthentication(ctx iris.Context) {
 // MidNeedNoAuthentication is a middleware that check if an user is not logged.
 func MidNeedNoAuthentication(ctx iris.Context) {
 	hash := ctx.GetHeader("hash")
+	fmt.Printf("HOOOOO YA PAS DE HASH FDP :" + ctx.GetHeader("hash"))
 	if !New().Auth(hash) {
 		ctx.Next()
 	} else {
