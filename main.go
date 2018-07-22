@@ -6,6 +6,7 @@ import (
 	"github.com/kataras/iris"
 	"github.com/koinkoin-io/koinkoin.backend/pkg/util"
 	"time"
+	"github.com/koinkoin-io/koinkoin.backend/pkg/worker"
 )
 
 var startTime  = time.Now()
@@ -20,5 +21,7 @@ func main() {
 
 	app := iris.Default()
 	RouteAll(app)
+	dispatcher := worker.NewDispatcher(worker.MaxWorker)
+	dispatcher.Run()
 	app.Run(iris.Addr(":" + util.GetEnvOrDefault("port", "80")))
 }
