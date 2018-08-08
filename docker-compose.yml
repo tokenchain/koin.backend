@@ -11,7 +11,9 @@ services:
       - datas.env
 
   redis:
-    build: ./redis
+    build:
+      context: .
+      dockerfile: Dockerfile.redis
     restart: always
     volumes:
       - redis
