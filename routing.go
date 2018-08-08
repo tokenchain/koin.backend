@@ -3,11 +3,11 @@ package main
 import (
 	"github.com/kataras/iris"
 	"github.com/didip/tollbooth"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/user"
-	"github.com/koinkoin-io/koinkoin.backend/third_party"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/auth"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/bet"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/mail"
+	"github.com/koin-bet/koin.backend/pkg/user"
+	"github.com/koin-bet/koin.backend/third_party"
+	"github.com/koin-bet/koin.backend/pkg/auth"
+	"github.com/koin-bet/koin.backend/pkg/bet"
+	"github.com/koin-bet/koin.backend/pkg/mail"
 	"time"
 	"github.com/kataras/iris/context"
 )

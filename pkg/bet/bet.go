@@ -3,7 +3,7 @@ package bet
 import (
 	"math/rand"
 	"time"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
+	"github.com/koin-bet/koin.backend/pkg/err"
 )
 
 // BetService declare the function Bet that is a function to bet coins.

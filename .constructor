@@ -1,0 +1,7 @@
+{
+  "name": "koin.backend",
+  "folder": "koin.backend",
+  "commands": [
+    "docker-compose -f build.yml build --no-cache"
+  ]
+}

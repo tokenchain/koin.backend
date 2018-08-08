@@ -4,7 +4,7 @@ import (
 	"gopkg.in/gomail.v2"
 	"crypto/tls"
 	"fmt"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/util"
+	"github.com/koin-bet/koin.backend/pkg/util"
 	"os"
 )
 

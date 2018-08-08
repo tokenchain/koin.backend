@@ -2,7 +2,7 @@ package auth
 
 import (
 	"github.com/kataras/iris"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
+	"github.com/koin-bet/koin.backend/pkg/err"
 	"fmt"
 )
 

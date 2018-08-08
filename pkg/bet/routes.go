@@ -3,9 +3,9 @@ package bet
 import (
 	"github.com/kataras/iris"
 	"strconv"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/user"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/auth"
+	"github.com/koin-bet/koin.backend/pkg/err"
+	"github.com/koin-bet/koin.backend/pkg/user"
+	"github.com/koin-bet/koin.backend/pkg/auth"
 )
 
 // Bet is a http handler that invoke New().Bet method with full error check.

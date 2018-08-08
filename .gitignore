@@ -7,3 +7,5 @@ idea/*
 *.dylib
 *.test
 *.out
+./idea
+./idea/*

@@ -2,9 +2,9 @@ package mail
 
 import (
 	"github.com/kataras/iris"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/user"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/err"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/worker"
+	"github.com/koin-bet/koin.backend/pkg/user"
+	"github.com/koin-bet/koin.backend/pkg/err"
+	"github.com/koin-bet/koin.backend/pkg/worker"
 )
 
 

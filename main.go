@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/koinkoin-io/koinkoin.backend/pkg/db"
+	"github.com/koin-bet/koin.backend/pkg/db"
 	"fmt"
 	"github.com/kataras/iris"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/util"
+	"github.com/koin-bet/koin.backend/pkg/util"
 	"time"
-	"github.com/koinkoin-io/koinkoin.backend/pkg/worker"
+	"github.com/koin-bet/koin.backend/pkg/worker"
 )
 
 var startTime  = time.Now()
@@ -16,7 +16,7 @@ func Uptime() string {
 }
 
 func main() {
-	fmt.Println("Launching koinkoin.io ! Bet, win and repeat.")
+	fmt.Println("Launching koin.bet ! Bet, win and repeat.")
 	defer db.CloseDb()
 
 	app := iris.Default()
@@ -24,6 +24,5 @@ func main() {
 	dispatcher := worker.NewDispatcher(worker.DefaultJobQueue, *worker.DefaultMaxWorkers)
 	dispatcher.Run()
 
-	fmt.Printf(util.GetEnvOrDefault("port", "000"))
 	app.Run(iris.Addr(":" + util.GetEnvOrDefault("port", "80")))
 }
