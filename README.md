@@ -1,4 +1,4 @@
-## Koinkoin.io
+## Koin.bet
 
 Koinkoin.io is a simple game that allows you to bet a certain amount of koins with a certain percentage of success. If it's win you win a commission of your bet, otherwise you lose it.
 
