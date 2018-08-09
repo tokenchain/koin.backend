@@ -9,7 +9,7 @@ Need to contains this fields:
 redis_host=redis
 redis_port=6379
 
-mail=io.koinkoin@gmail.com
+mail=io.koin@gmail.com
 mail_pwd=password_here
 mail_host=smtp.gmail.com
 mail_port=465
