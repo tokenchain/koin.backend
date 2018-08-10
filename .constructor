@@ -1,7 +1,5 @@
 {
-  "name": "koin.backend",
-  "folder": "koin.backend",
   "commands": [
-    "docker build -t koin.backend . --no-cache",
+    "docker build -t koin.backend . --no-cache"
   ]
 }

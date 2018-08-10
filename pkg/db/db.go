@@ -20,6 +20,9 @@ func GetDb() *xredis.Client {
 	if client == nil {
 		client = xredis.SetupClient(opts)
 	}
+	if client == nil {
+		panic("Redis connection can't be establish !")
+	}
 	return client
 }
 
