@@ -1,5 +1,5 @@
 {
   "commands": [
-    "docker build -t koin.backend . --no-cache"
+    "docker build -t koin.backend ."
   ]
 }
