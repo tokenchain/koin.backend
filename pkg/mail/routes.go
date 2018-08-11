@@ -7,8 +7,6 @@ import (
 	"github.com/koin-bet/koin.backend/pkg/worker"
 )
 
-
-
 func GetSendMail(ctx iris.Context) {
 	if ctx.URLParam("mail") == "" || !user.MailRegexp.MatchString(ctx.URLParam("mail")) {
 		err.ThrownError(ctx, err.IncorrectMail)

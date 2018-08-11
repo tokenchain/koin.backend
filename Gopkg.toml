@@ -24,6 +24,9 @@
 #   go-tests = true
 #   unused-packages = true
 
+[[constraint]]
+  name = "github.com/rhinoman/couchdb-go"
+  branch = "master"
 
 [[constraint]]
   branch = "master"
@@ -36,10 +39,6 @@
 [[constraint]]
   name = "github.com/kataras/iris"
   version = "10.6.6"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/shomali11/xredis"
 
 [[constraint]]
   name = "gopkg.in/gomail.v2"

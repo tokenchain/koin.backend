@@ -3,9 +3,12 @@ package bet
 import (
 	"github.com/koin-bet/koin.backend/pkg/db"
 	"math"
+	"log"
+	"os"
 )
 
 var globalStats = NewStats("global")
+var l = log.New(os.Stdout, "[STATS] ", 0)
 
 // Statistics represent the globals stats of a player when he bet.
 type Statistics struct {
@@ -154,14 +157,19 @@ func NewStats(key string) *Statistics {
 		MinEarn:   math.MaxUint64,
 		MinAmount: math.MaxUint64,
 	}
-	exist, err := db.GetDb().HKeys("stats.bet." + stats.Hash)
-	if len(exist) > 0 && err == nil {
-		db.StructFromKey("stats.bet."+stats.Hash, stats)
+	if _, err := db.GetStats(key, stats)  ; err != nil{
+		db.InsertStats(stats, key)
 	}
 	return stats
 }
 
 // save save the stats on the database.
 func (s Statistics) save() {
-	db.SaveStructure("stats.bet."+s.Hash, s)
+	st := &Statistics{}
+	rev, err := db.GetStats(s.Hash, st)
+	if err != nil {
+		db.InsertStats(s, s.Hash)
+		return
+	}
+	db.UpdateStats(s.Hash, s, rev)
 }

@@ -9,12 +9,6 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/FZambia/go-sentinel"
-  packages = ["."]
-  revision = "76bd05e8e22f9f8f5e1dd6d3a85b7951da7cce57"
-
-[[projects]]
-  branch = "master"
   name = "github.com/Joker/jade"
   packages = ["."]
   revision = "8828253bfc54f2f91aaef5f32b44a244b0a98e4f"
@@ -69,15 +63,6 @@
   revision = "67f4ff8560dfa2b00920118f228c0a2f68760631"
 
 [[projects]]
-  name = "github.com/garyburd/redigo"
-  packages = [
-    "internal",
-    "redis"
-  ]
-  revision = "a69d19351219b6dd56f274f96d85a7014a2ec34e"
-  version = "v1.6.0"
-
-[[projects]]
   branch = "master"
   name = "github.com/hashicorp/go-version"
   packages = ["."]
@@ -92,8 +77,8 @@
 [[projects]]
   name = "github.com/json-iterator/go"
   packages = ["."]
-  revision = "ab8a2e0c74be9d3be70b3184d9acc634935ded82"
-  version = "1.1.4"
+  revision = "1624edc4454b8682399def8740d46db5e4362ba4"
+  version = "1.1.5"
 
 [[projects]]
   branch = "master"
@@ -218,6 +203,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/rhinoman/couchdb-go"
+  packages = ["."]
+  revision = "310a5a9beb662138d34cc3e2d510824047e58553"
+
+[[projects]]
+  branch = "master"
   name = "github.com/ryanuber/columnize"
   packages = ["."]
   revision = "abc90934186a77966e2beeac62ed966aac0561d5"
@@ -227,12 +218,6 @@
   name = "github.com/satori/go.uuid"
   packages = ["."]
   revision = "36e9d2ebbde5e3f13ab2e25625fd453271d6522e"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/shomali11/xredis"
-  packages = ["."]
-  revision = "1b70d5e72859449f3fcc2f455ab0058b37ba9a0b"
 
 [[projects]]
   branch = "master"
@@ -298,6 +283,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "425d841f318e85cead30126801d4df3bf4d5f915eae04cfba6c7b0227d33f297"
+  inputs-digest = "7c0871d61004db0e55a7ccbdaee65d8a4a40e42fb3fb843ca809b389fcfc6480"
   solver-name = "gps-cdcl"
   solver-version = 1

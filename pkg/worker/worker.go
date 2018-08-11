@@ -52,7 +52,6 @@ func (w Worker) start() {
 	go func() {
 		for {
 			w.workerPool <- w.jobQueue
-
 			select {
 			case job := <-w.jobQueue:
 				if err := job.Run(); err != nil {

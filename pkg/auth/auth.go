@@ -2,8 +2,11 @@ package auth
 
 import (
 	"github.com/koin-bet/koin.backend/pkg/db"
-	"fmt"
+	"log"
+	"os"
 )
+
+var l = log.New(os.Stdout, "[AUTH] ", 0)
 
 // AuthService check if an user is recognized
 type AuthService interface {
@@ -20,9 +23,14 @@ func New() Auth {
 
 // Auth check if in the database user with this hash exist
 func (Auth) Auth(hash string) bool {
-	exist, err := db.GetDb().HKeys("user." + hash)
+	u := &struct {
+		Hash string `json:"hash"`
+	}{}
+	_, err := db.GetUser(hash, u)
 	if err != nil {
-		fmt.Println("ERROR: ", err)
+		l.Printf("Error on login: %s\n", err.Error())
+		return false
 	}
-	return len(exist) > 0 && err == nil
+	l.Printf("Structure |%#v|\n", u)
+	return u.Hash == hash
 }

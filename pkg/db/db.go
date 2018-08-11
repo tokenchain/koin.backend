@@ -1,77 +1,102 @@
 package db
 
 import (
-	"github.com/shomali11/xredis"
-	"reflect"
-	"fmt"
-	"github.com/koin-bet/koin.backend/third_party"
+	"github.com/rhinoman/couchdb-go"
+	"time"
 	"github.com/koin-bet/koin.backend/pkg/util"
+	"os"
+	"log"
+	"github.com/koin-bet/koin.backend/pkg/supervisor"
+	"github.com/kataras/iris/core/errors"
+	"fmt"
 )
 
-var opts = &xredis.Options{
-	Host: util.GetEnvOrDefault("db_host", "localhost"),
-	Port: util.GetEnvOrDefaultInt("db_port", 6379),
-}
+var (
+	l       = log.New(os.Stdout, "[DB] ", 0)
+	conn    *couchdb.Connection
+	timeout = time.Duration(1 * time.Second)
+	auth    = &couchdb.BasicAuth{os.Getenv("db_username"), os.Getenv("db_password")}
 
-var client = xredis.SetupClient(opts)
+	dbUser  *couchdb.Database = nil
+	dbStats *couchdb.Database = nil
+)
 
-// GetDb provide redis client
-func GetDb() *xredis.Client {
-	if client == nil {
-		client = xredis.SetupClient(opts)
-	}
-	if client == nil {
-		panic("Redis connection can't be establish !")
-	}
-	return client
-}
-
-// SaveStructure save fields with tag json into db.
-func SaveStructure(key string, va interface{}) {
-	t := reflect.TypeOf(va)
-	v := reflect.ValueOf(va)
-	if t.Kind() == reflect.Struct {
-		for i := 0; i < t.NumField(); i++ {
-			client.HSet(key, t.Field(i).Tag.Get("json"), fmt.Sprint(v.Field(i)))
-		}
-	}
-}
-
-// StructFromKey retrieve fields from db and inject it into
-// val. Fields need to be tagged with 'json'.
-func StructFromKey(key string, val interface{}) {
-	keys, err := client.HKeys(key)
-	t := reflect.TypeOf(val).Elem()
-	v := reflect.ValueOf(val)
+func init() {
+	var err error
+	conn, err = couchdb.NewConnection(
+		util.GetEnvOrDefault("db_host", "127.0.0.1"),
+		util.GetEnvOrDefaultInt("db_port", 5984),
+		timeout)
 
 	if err != nil {
-		return
+		panic("Can't connect to database " + err.Error() + ".")
 	}
 
-	mapStruct := structToMapTags(t, v)
-	for _, tag := range keys {
+	initializeDatabase("users")
+	initializeDatabase("stats")
 
-		toSet, _, _ := client.HGet(key, tag)
-		field, ok := mapStruct[tag]
+}
 
-		if !ok {
-			continue
+func InsertStats(stats interface{}, id string) {
+	_, err := dbStats.Save(stats, id, "")
+	if err != nil {
+		l.Printf("Error on inserting stats %s: %s.\n", id, err.Error())
+	}
+}
+
+func GetStats(id string, stats interface{}) (rev string, err error) {
+	fmt.Println(dbStats)
+	return dbStats.Read(id, stats, nil)
+}
+
+func UpdateStats(id string, stats interface{}, rev string) {
+	_, err := dbStats.Save(stats, id, rev)
+	if err != nil {
+		l.Printf("Error on updating stats %s with revision %s: %s.\n", id, err.Error(), rev)
+	}
+}
+
+func InsertUser(user interface{}, id string) {
+	_, err := dbUser.Save(user, id, "")
+	if err != nil {
+		l.Printf("Error on inserting user %s: %s.\n", id, err.Error())
+	}
+}
+
+func GetUser(id string, user interface{}) (rev string, err error) {
+	return dbUser.Read(id, user, nil)
+}
+
+func UpdateUser(id string, user interface{}, rev string) {
+	_, err := dbUser.Save(user, id, rev)
+	if err != nil {
+		l.Printf("Error on updating user %s with revision %s: %s.\n", id, err.Error(), rev)
+	}
+}
+
+func initializeDatabase(name string) {
+	supervisor := supervisor.New(20, 2*time.Second)
+	success := supervisor.GoSync("Initializing satabase "+name, func() error {
+		db := conn.SelectDB(name, auth)
+		if err := db.DbExists(); err != nil {
+			if err = conn.CreateDB(name, auth); err != nil {
+				return errors.New("Cant't create database " + name + ": " + err.Error() + " (" + auth.DebugString() + ").")
+			}
+			setDatabase(name, db)
 		}
-		third.SetFieldTo(field, toSet)
+		l.Printf("Database %s initialized.\n", name)
+		setDatabase(name, db)
+		return nil
+	})
+	if !success {
+		l.Panic("Cant't connect to database...")
 	}
-}
 
-// structToMapTags convert a struct to a map with JSON Key-> Value.
-// Because just one read, no loop thought all fields and check if the tag match.
-func structToMapTags(t reflect.Type, v reflect.Value) map[string]reflect.Value {
-	m := make(map[string]reflect.Value)
-	for i := 0; i < t.NumField(); i++ {
-		m[t.Field(i).Tag.Get("json")] = v.Elem().Field(i)
+}
+func setDatabase(s string, database *couchdb.Database) {
+	if s == "users" {
+		dbUser = database
+	} else if s == "stats" {
+		dbStats = database
 	}
-	return m
-}
-
-// CloseDb close the connection with the client and redis
-func CloseDb() {
-	client.Close()
 }

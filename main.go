@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/koin-bet/koin.backend/pkg/db"
 	"fmt"
 	"github.com/kataras/iris"
 	"github.com/koin-bet/koin.backend/pkg/util"
@@ -17,7 +16,6 @@ func Uptime() string {
 
 func main() {
 	fmt.Println("Launching koin.bet ! Bet, win and repeat.")
-	defer db.CloseDb()
 
 	app := iris.Default()
 	RouteAll(app)
