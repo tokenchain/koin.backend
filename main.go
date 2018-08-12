@@ -20,6 +20,6 @@ func main() {
 	RouteAll(app)
 	dispatcher := worker.NewDispatcher(worker.DefaultJobQueue, *worker.DefaultMaxWorkers)
 	dispatcher.Run()
-
+=
 	app.Run(iris.Addr(":" + util.GetEnvOrDefault("port", "80")))
 }
