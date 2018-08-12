@@ -16,7 +16,6 @@ func Uptime() string {
 
 func main() {
 	fmt.Println("Launching koin.bet ! Bet, win and repeat.")
-_________________________________________________________--
 	app := iris.Default()
 	RouteAll(app)
 	dispatcher := worker.NewDispatcher(worker.DefaultJobQueue, *worker.DefaultMaxWorkers)
