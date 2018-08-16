@@ -2,7 +2,7 @@
   "pipelines": [
     {
         "name": "Building",
-        "commands": ["build -t koin.backend ."]
+        "commands": ["docker build -t koin.backend ."]
     }
   ]
 }
