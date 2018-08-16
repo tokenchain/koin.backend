@@ -1,5 +1,0 @@
-{
-  "commands": [
-    "docker build -t koin.backend ."
-  ]
-}

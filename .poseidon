@@ -1,0 +1,7 @@
+{
+  "pipelines": [
+    {
+        "name": "Building",
+        "commands": ["build -t koin.backend ."]
+    }
+}
