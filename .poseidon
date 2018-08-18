@@ -1,5 +1,5 @@
 {
-  "pipelines": [
+  "stages": [
     {
         "name": "Building",
         "commands": ["docker build -t koin.backend ."]
