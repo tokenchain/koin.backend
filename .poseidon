@@ -3,6 +3,10 @@
     {
         "name": "Building",
         "commands": ["docker build -t koin.backend ."]
+    },
+    {
+        "name": "Waiting",
+        "commands": ["sleep 10"]
     }
   ]
 }
